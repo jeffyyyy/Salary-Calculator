@@ -1,13 +1,17 @@
 const express = require('express')
 const path = require('path')
 const webpack = require('webpack')
+const bodyParser = require('body-parser')
 const logger = require('../build/lib/logger')
 const webpackConfig = require('../build/webpack.config')
 const project = require('../project.config')
 const compress = require('compression')
+const helper = require('./helper')
 
 const app = express()
 app.use(compress())
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
@@ -35,6 +39,12 @@ if (project.env === 'development') {
   // when the application is compiled.
   app.use(express.static(path.resolve(project.basePath, 'public')))
 
+  app.post('/api/v1/calculator', function (req, res) {
+    helper.calculatePayslip(req.body).then((response) => {
+      return res.json(response)
+    })
+  })
+
   // This rewrites all routes requests to the root /index.html file
   // (ignoring file requests). If you want to implement universal
   // rendering, you'll want to remove this middleware.
@@ -61,6 +71,13 @@ if (project.env === 'development') {
   // Serving ~/dist by default. Ideally these files should be served by
   // the web server and not the app server, but this helps to demo the
   // server in production.
+
+  app.post('/api/v1/calculator', function (req, res) {
+    helper.calculatePayslip(req.body).then((response) => {
+      return res.json(response)
+    })
+  })
+
   app.use(express.static(path.resolve(project.basePath, project.outDir)))
 }
 

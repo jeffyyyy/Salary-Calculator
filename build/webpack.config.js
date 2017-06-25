@@ -38,6 +38,10 @@ const config = {
     rules: [],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      Promise: 'imports-loader?this=>global!exports-loader?global.Promise!es6-promise',
+      fetch: 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
+    }),
     new webpack.DefinePlugin(Object.assign({
       'process.env': { NODE_ENV: JSON.stringify(project.env) },
       __DEV__,
