@@ -2,7 +2,7 @@ import * as consts from 'routes/Calculator/constants/constants'
 import CalculatePayslipReducer from 'routes/Calculator/reducers/CalculatorReducers'
 import _ from 'lodash'
 
-describe('Characters reducers', () => {
+describe('Calculator reducers', () => {
   it('Should be a function.', () => {
     expect(CalculatePayslipReducer).to.be.a('function')
   })

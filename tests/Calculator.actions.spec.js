@@ -1,7 +1,7 @@
 import * as consts from 'routes/Calculator/constants/constants'
 import * as actions from '../src/routes/Calculator/actions/CalculatorActions'
 
-describe('Characters actions', () => {
+describe('Calculator actions', () => {
   it('Should export a constant RECEIVE_PAYSLIP_DATA.', () => {
     expect(consts.RECEIVE_PAYSLIP_DATA).to.equal('RECEIVE_PAYSLIP_DATA')
   })

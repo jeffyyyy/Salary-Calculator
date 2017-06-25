@@ -16,7 +16,7 @@ const calculateTotalTaxPaid = (annualIncome, superRate) => {
       let totalTax = taxRule.minTax + (annualIncome - taxRule.minIncome + 1) * taxRule.rate
       resolve({ annualIncome: annualIncome, super: superRate, totalTax: totalTax })
     } else {
-      resolve(0)
+      resolve({ annualIncome: 0, super: superRate, totalTax: 0 })
     }
   })
 }

@@ -1,6 +1,6 @@
 # Payslip Calculator
 
-It is a simple payslip calculator built with React-Redux-Node.js starter kit. 
+It is a payslip calculator built with React-Redux-Node.js starter kit. It has easy to use UI, form validations for input data and thorough tests. 
 
 ## Requirements
 * node `^5.0.0`
@@ -69,7 +69,6 @@ $ yarn test  # Run tests
 ```
 
 ## Further improvements (incoming...)
-1. Unit test for back-end logic of calculating correct income tax
-2. back-end api input validation
+1. back-end api input validation, currently only have frontend input validation.
 
 
