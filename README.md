@@ -29,6 +29,8 @@ After completing the [installation](#installation) step, you're ready to start t
 $ yarn start  # Start the development server (or `npm start`)
 ```
 
+Now open your browser and enter address http://localhost:3000/, you will see the UI for the calculator
+
 ```bash
 $ yarn test  # Run tests
 ```
