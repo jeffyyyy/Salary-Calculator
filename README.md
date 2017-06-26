@@ -8,7 +8,7 @@ It is a payslip calculator built with React-Redux-Node.js starter kit. It has ea
 
 ## Installation
 
-After confirming that your environment meets the above [requirements](#requirements), you can create a new project based on `react-redux-starter-kit` by doing the following:
+After confirming that your environment meets the above [requirements](#requirements), you can create a new project by doing the following:
 
 ```bash
 $ git clone https://github.com/jeffyyyy/Salary-Calculator.git <my-project-name>
@@ -35,6 +35,7 @@ Now open your browser and enter address http://localhost:3000/, you will see the
 $ yarn test  # Run tests
 ```
 
+Run all tests under folder tests, including Redux actions/reducers, back-end unit tests.
 
 ## Project Structure
 
@@ -65,10 +66,10 @@ $ yarn test  # Run tests
 │   │   ├── createStore.js   # Create and instrument redux store
 │   │   └── reducers.js      # Reducer registry and injection
 │   └── styles               # Application-wide styles (generally settings)
-└── tests                    # Redux Actions and Reducers tests(Unit tests incoming)
+└── tests                    # Redux Actions, Reducers tests, Backend API unit tests
 ```
 
 ## Further improvements (incoming...)
-1. back-end api input validation, currently only have frontend input validation.
+1. query caching
 
 

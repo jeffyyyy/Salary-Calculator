@@ -42,6 +42,8 @@ if (project.env === 'development') {
   app.post('/api/v1/calculator', function (req, res) {
     helper.calculatePayslip(req.body).then((response) => {
       return res.json(response)
+    }, (error) => {
+      return res.status(500).send({message: error.message})
     })
   })
 

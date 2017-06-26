@@ -1,22 +1,38 @@
 'use strict'
 const taxRules = require('./taxRules').rule
+const salaryInputRules = require('./salaryInputValidationRules')
 const _ = require('lodash')
 
-const calculateTotalTaxPaid = (annualIncome, superRate) => {
+const validateSalaryDataInput = (data) => {
+  return new Promise((resolve, reject) => {
+    if (!_.isInteger(data.salary) || !_.isInteger(data.super)) reject(new Error('Invalid input - Salary or Super not integer'))
+
+    if (_.isInteger(data.salary) && (data.salary < salaryInputRules.salary.min || data.salary > salaryInputRules.salary.max)) {
+      reject(new Error('Invalid input - Salary range out of boundary'))
+    }
+    if (_.isInteger(data.super) && (data.super < salaryInputRules.super.min || data.super > salaryInputRules.super.max)) {
+      reject(new Error(`Invalid input - Super range out of boundary, must be within range of ${salaryInputRules.super.min} and ${salaryInputRules.super.max}`))
+    }
+
+    resolve(data)
+  })
+}
+
+const calculateTotalTaxPaid = (data) => {
   return new Promise((resolve, reject) => {
     let taxRule = _.filter(taxRules, (rule) => {
       if (rule.maxIncome !== undefined) {
-        return annualIncome >= rule.minIncome && annualIncome <= rule.maxIncome
+        return data.salary >= rule.minIncome && data.salary <= rule.maxIncome
       } else {
-        return annualIncome >= rule.minIncome
+        return data.salary >= rule.minIncome
       }
     })
     if (taxRule.length) {
       taxRule = taxRule[0]
-      let totalTax = taxRule.minTax + (annualIncome - taxRule.minIncome + 1) * taxRule.rate
-      resolve({ annualIncome: annualIncome, super: superRate, totalTax: totalTax })
+      let totalTax = taxRule.minTax + (data.salary - taxRule.minIncome + 1) * taxRule.rate
+      resolve({ annualIncome: data.salary, super: data.super, totalTax: totalTax })
     } else {
-      resolve({ annualIncome: 0, super: superRate, totalTax: 0 })
+      resolve({ annualIncome: 0, super: data.super, totalTax: 0 })
     }
   })
 }
@@ -64,10 +80,11 @@ const constructPayslip = (data) => {
 }
 
 const calculatePayslip = (data) => {
-  return calculateTotalTaxPaid(data.salary, data.super).then(constructPayslip)
+  return validateSalaryDataInput(data).then(calculateTotalTaxPaid).then(constructPayslip)
 }
 
 module.exports = {
+  validateSalaryDataInput: validateSalaryDataInput,
   calculateTotalTaxPaid: calculateTotalTaxPaid,
   constructPayslip: constructPayslip,
   calculatePayslip: calculatePayslip

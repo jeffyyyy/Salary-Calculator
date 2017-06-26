@@ -15,10 +15,30 @@ describe('Calculator unit tests', () => {
     expect(helper.calculatePayslip).to.be.a('function')
   })
 
+  describe('Should fail given input is invalid', () => {
+    it('given input salary is -10, super 10%', () => {
+      let initialResult = { salary: -10, super: 10};
+      let result = helper.validateSalaryDataInput(initialResult)
+      return expect(result).to.be.rejected
+    })
+
+    it('given input salary is -100, super -20%', () => {
+      let initialResult = { salary: -10, super: -20};
+      let result = helper.validateSalaryDataInput(initialResult)
+      return expect(result).to.be.rejected
+    })
+
+    it('given input salary is 100, super 60%', () => {
+      let initialResult = { salary: 100, super: 60};
+      let result = helper.validateSalaryDataInput(initialResult)
+      return expect(result).to.be.rejected
+    })
+  })
+
   describe('Should calculate correct result when income is $10000, super 10%', () => {
     it('should calculate correct tax result', () => {
       let expectedResult = { annualIncome: 10000, super: 10, totalTax: 0 };
-      let result = helper.calculateTotalTaxPaid(10000, 10)
+      let result = helper.calculateTotalTaxPaid({salary: 10000, super: 10})
       return expect(result).to.eventually.deep.equal(expectedResult)
     })
 
@@ -63,7 +83,7 @@ describe('Calculator unit tests', () => {
   describe('Should calculate correct result when income is $36999, super 20%', () => {
     it('should calculate correct tax result', () => {
       let expectedResult = { annualIncome: 36999, super: 20, totalTax: 3571.81 };
-      let result = helper.calculateTotalTaxPaid(36999, 20)
+      let result = helper.calculateTotalTaxPaid({salary: 36999, super: 20})
       return expect(result).to.eventually.deep.equal(expectedResult)
     })
 
@@ -107,7 +127,7 @@ describe('Calculator unit tests', () => {
   describe('Should calculate correct result when income is $65000, super 15%', () => {
     it('should calculate correct tax result', () => {
       let expectedResult = { annualIncome: 65000, super: 15, totalTax: 12672 };
-      let result = helper.calculateTotalTaxPaid(65000, 15)
+      let result = helper.calculateTotalTaxPaid({salary: 65000, super: 15})
       return expect(result).to.eventually.deep.equal(expectedResult)
     })
 
@@ -151,7 +171,7 @@ describe('Calculator unit tests', () => {
   describe('Should calculate correct result when income is $155000, super 15%', () => {
     it('should calculate correct tax result', () => {
       let expectedResult = { annualIncome: 155000, super: 15, totalTax: 45297 };
-      let result = helper.calculateTotalTaxPaid(155000, 15)
+      let result = helper.calculateTotalTaxPaid({salary: 155000, super: 15})
       return expect(result).to.eventually.deep.equal(expectedResult)
     })
 
