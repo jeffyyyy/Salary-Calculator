@@ -23,7 +23,7 @@ describe('Calculator unit tests', () => {
     })
 
     it('given input salary is -100, super -20%', () => {
-      let initialResult = { salary: -10, super: -20};
+      let initialResult = { salary: -100, super: -20};
       let result = helper.validateSalaryDataInput(initialResult)
       return expect(result).to.be.rejected
     })
